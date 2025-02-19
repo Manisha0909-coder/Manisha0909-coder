@@ -60,3 +60,9 @@ def habit_completed(habit_id:int):
     today = str(date.today())
     habits[habit_id].progress[today]=True
     return{"message":f"Habit {habit_id} marked completed today"}
+
+@app.get("/habits/{habit_id}/history")
+def get_habithistory(habit_id:int):
+    if habit_id not in habits:
+        raise HTTPException(status_code=404,detail="Habit not found")
+    return habits[habit_id].progress
