@@ -55,7 +55,7 @@ def delete_habit(habit_id: int):
 @app.post("/habits/{habit_id}/completed")
 def habit_completed(habit_id:int):
     if habit_id not in habits:
-        raise HTTPException(status_code=404,details="Habit not found")
+        raise HTTPException(status_code=404, detail="Habit not found")
     
     today = str(date.today())
     habits[habit_id].progress[today]=True
@@ -64,5 +64,6 @@ def habit_completed(habit_id:int):
 @app.get("/habits/{habit_id}/history")
 def get_habithistory(habit_id:int):
     if habit_id not in habits:
-        raise HTTPException(status_code=404,detail="Habit not found")
+        raise HTTPException(status_code=404, detail="Habit not found")
+        #raise HTTPException(status_code=400, detail="Invalid request")
     return habits[habit_id].progress
