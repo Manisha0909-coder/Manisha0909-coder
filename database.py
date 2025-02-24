@@ -24,5 +24,6 @@ class HabitDB(Base):
     streak = Column(Integer, default=0)
     last_completed_date = Column(Date, nullable=True)
 # Create table
-# Base.metadata.drop_all(bind=engine)
+#Base.metadata.drop_all(bind=engine)
 Base.metadata.create_all(bind=engine)
+print("Database tables created successfully!")
