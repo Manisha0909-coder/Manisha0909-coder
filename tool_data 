@@ -1,0 +1,503 @@
+tool_data = [
+    {
+        "tool_name" : "GetEmployeeBenefitsAndAllowances",
+        "tool_desc" : """
+        GetEmployeeBenefitsAndAllowances: Use this tool when:
+        - The user asks for their salary
+        - The user asks for their benefits
+        - The user asks for their allowances
+        - To check the user salary, allowances and benefits details
+        - This is the default tool to use when the user asks for their salary/salary info/allowances
+        """
+    },
+    {
+        "tool_name" : "GetLeaveInformation",
+        "tool_desc" : """
+        GetLeaveInformation: This tool provides access to the user's official leave information, including:
+        - Retrieve leave balance: Check the number of days they have available for different types of leave, such as annual leave, sick leave, or other categories. Use keywords like "leave balance", "remaining leave days", "available leave", "leave balance", "leave entitlement", "how many days of <some leave type> do I have", "am i eligible <some leave type> leave".
+        - Retrieve leave history: View a record of their past leave applications, approvals, and balances for different types of leave. Use keywords like "leave history", "past leave applications", "leave records", "previous leave requests", "leave transactions", "ترك السجلات".
+        - Retrieve future leave information: Get details about upcoming approved leaves. Use keywords like "future leaves", "upcoming leaves", "approved future leave", "scheduled leave", "planned leave","eligible leave".
+        - ALWAYS CALL THIS WHEN THE USER ASKS FOR THEIR LEAVE BALANCES OR ELIGIBILITY FOR LEAVES.
+        - DO NOT CALL THIS IF THE USER WANTS TO APPLY FOR LEAVE OR RETRIEVE THE STATUS OF A LEAVE THEY HAVE ALREADY APPLIED FOR.
+        
+        - THIS TOOL ONLY INFORMS THE USERS ABOUT LEAVES THEY HAVE.
+        - NEVER CHOOSE THIS IF THE USER WANTS TO APPLY FOR A LEAVE OR ASKS ABOUT HOLIDAYS OR ATTENDANCE
+        """
+    },
+    {
+    "tool_name" : "OtherDocumentsInformation",
+    "tool_desc" : """
+    OtherDocumentsInformation: Use this tool when a user's request:
+    - Focuses on some **document (وثيقة)** such as a **tender (مناقصة)**, **research paper (ورقة بحثية)**, or general **concept (مفهوم عام)**
+    - Do not use this for **leave information (معلومات الإجازة)** or **HR policies (سياسات الموارد البشرية)**
+    - Use this when the user asks about their uploaded **documents (الوثائق)** or files as well.
+    """
+    },
+
+    {
+        "tool_name" : "HRPolicyInformation",
+        "tool_desc" : """
+        HRPolicyInformation: Use this tool when a user's request:
+        Relates to official HR policies (سياسات الموارد البشرية), procedures (الإجراءات), official holiday or guidelines (الإرشادات) within the organization.
+
+        - Involves queries about code of conduct (مدونة السلوك), performance reviews (تقييم الأداء), disciplinary actions (الإجراءات التأديبية), or other HR-related topics (مواضيع متعلقة بالموارد البشرية), leave policies (سياسات الإجازة), benefits (المزايا), overtime (العمل الإضافي), and allowances (البدلات),
+        - What are the official holidays? (ما هي العطل الرسمية؟) 
+        - overtime pay calculations (حساب بدل العمل الإضافي).
+        - IT-policy related questions (الأسئلة المتعلقة بسياسة تكنولوجيا المعلومات), such as forgot passwords (كلمات المرور), VPNs (الشبكات الافتراضية الخاصة), and such are here as well.
+        YOU MUST CALL THIS IN CASE OF overtime (العمل الإضافي) / IT / General company QUESTIONS (الأسئلة العامة عن الشركة).
+        """
+    },
+    
+    {
+    "tool_name": "GetAZFJournalInformation",
+    "tool_desc": """
+    GetAZFJournalInformation: Use this tool to provide journal information from AZF (Aspire/Aspetar Zone Foundation), a Qatari organization, focusing on medical and sports-related content.
+
+    - Handles queries related to AZF's medical journal entries, including research publications (الأبحاث), case studies (دراسات الحالة), and updates (التحديثات) on sports medicine and rehabilitation practices.
+    - Includes information about advancements (التطورات) in sports science, injury prevention techniques (تقنيات الوقاية من الإصابات), recovery protocols (بروتوكولات التعافي), and athlete health optimization (تحسين صحة الرياضيين).
+    - Suitable for requests seeking insights into AZF's medical research, ongoing projects (المشاريع الجارية), and evidence-based practices (الممارسات القائمة على الأدلة) to support sports doctors, physiotherapists, and healthcare professionals.
+    """
+    },
+    
+    {
+    "tool_name": "GetAZFEmployeeHandbookPoliciesInfo",
+    "tool_desc": """
+    GetAZFEmployeeHandbookPoliciesInfo: This tool provides detailed information from the Employee handbooks  & Supervisor Handbooks, organizational policies, and procedures as per handbooks.
+
+    - Covers guidelines (إرشادات) for employees and supervisors, including leave policies (سياسات الإجازات), benefits (المزايا), workplace conduct (سلوكيات العمل), and supervisor roles (أدوار المشرفين),family residencies & resident permit renewal policy,Lost and Found Property policy.
+    - Explains processes for issuing access cards (بطاقات الوصول) and business cards,  managing keys (إدارة المفاتيح), RP cancellation documents and procedure, and property removal (إزالة الممتلكات) procedures, new born RP procedure .
+    - Includes instructions for Lost & Found (المفقودات والموجودات), detailing reporting, handling, and storing lost items (تخزين الأشياء المفقودة).
+    - Suitable for addressing inquiries related to AZF’s workplace operations (عمليات مكان العمل) and ensuring compliance (الامتثال) with policies, this also includes information about parking and official holidays.
+    - If the user mentions 'as per <employee/supervisor> handbook,' 'check handbook,' or refers to the above-mentioned topics, use this tool
+    - If the user asks for procedures or steps, such as in queries like 'What process do I need to follow?', 'What is the process for planning my vacation?', 'Can you share vacation planning guidelines?', 'What are the parking guidelines?','how do i utilize the car parking at azf', 'I have a new born baby, what is the process i need to follow?','i lost my laptop what shall i do?' or similar inquiries, use the GetAZFEmployeeHandbookPoliciesInfo tool.
+    """
+    },
+    
+    # {
+    #     "tool_name" : "CafeteriaInformation",
+    #     "tool_desc" : """
+    #     CafeteriaInformation: Use this tool:
+    #     -   When the user's query contains inquiries about the cafeteria, such as menu options, operating hours, special offers, or food availability.
+    #     -   When the user is asking for food suggestions, recommendations, or feedback on cafeteria services.
+    #     -   Always use this when the user is asking about the cafeteria or food
+    #     """
+    # },
+    {
+        "tool_name": "MyAspireRallyFAQs",
+        "tool_desc": """
+        MyAspireRallyFAQs: Use this tool:
+        -   Always use this when the user is asking about My Aspire rally-related information or FAQs.
+        -   Use keywords like "tell me FAQs about Rally"/(أخبرني بالأسئلة الشائعة عن Rally), "ايش تقدر تسوي؟","What can you do?","what are the services you can provide", "what services are available" or "what services rally can help"/(ما الخدمات التي يمكن لـ Rally مساعدتك بها). 
+        
+        """
+        
+    },
+    
+    {
+        "tool_name": "EmailRetriever",
+        "tool_desc" : """
+        EmailRetriever: Use this tool when a user's request:
+        -	If user specifically requested information with key words  "my outlook", "inbox", "projects", "discussions", "letters", "email chain", etc.
+        -	Relates to information that is not readily available on the internet but is likely contained within the user's email communications.
+        -	Involves extracting information from email chains, conversations, or specific messages.
+        -   You can also use this to get information from specific mails as well.
+        -   Always call this when asked about things people have mentioned as well - "what did <PERSON> say/mention about <TOPIC>"
+        -   CALL THIS BY DEFAULT IN ADDITION TO OTHER TOOL CALLS 
+        -   The user may also refer to discussions with others, or talk about their relationship with someone else. Choose this there too,
+        -   Use this to also search for users mentioned by what they said or did.
+        -   Use this to also search  project-related  information 
+        -   Users tend to follow active situations through their mails, so use this for giving latest updates
+        -	Uses keywords like "tell me about my outlook", "tell me about inbox", "tell me about projects", "discussions", "letters", "email chain", "email thread", "tell me about the latest update", "what happened in", "pending with", "performance of", "minutes of meeting", "agenda of meeting", "list of competitors".
+        -   Use this tool when summarizing or extracting information from email threads.
+        """
+    },
+    {
+        "tool_name": "BankLetterRequest",
+        "tool_desc" : """
+        BankLetterRequest: Use this tool when a user's request:
+        -   Explicitly relates to applying or requesting an  "bank letter","خطاب للبنك".
+        -   Clearly uses keywords like "employee letter" or "salary certificates","شهادة عمل","ممكن شهادة توظيف مع تفاصيل الراتب؟"
+        -   Clearly uses keywords like "bank letter","letter to bank for personal loan","bank letter for car loan", "bank letter with type new employee","bank letter for salary transfer","bank letter for credit card", "",
+        -   DO NOT USE THIS FOR ANY REQUESTS OTHER THAN Bank Letter Request
+        """
+    },
+    {
+        "tool_name": "VisaLetterRequest",
+        "tool_desc": """
+        VisaLetterRequest: Use this tool when a user's request:
+        - Explicitly relates to applying or requesting for a Visa letter
+        - Uses keywords like "visa letter", "خطاب فيزا",or " I want to go on vacation,apply for letter","i want to go for a trip please apply for letter"
+        - Implies letter for travel documentation, such as in cases where the user mentions that he need a LETTER for going on vacation,trip or traveling abroad.
+        - DO NOT USE THIS FOR ANY REQUESTS OTHER THAN Visa Letter Request.
+        """
+    },
+
+   {
+        "tool_name": "EmployeeLetterRequest",
+        "tool_desc" : """
+        EmployeeLetterRequest: Use this tool when a user's request:
+        -   Explicitly relates to applying or requesting for a employee letter.
+        -   This tool is ONLY for requesting official letters or certificates, It does NOT handle leave applications or Not Guide to sumbit leave application.
+        -   Clearly uses keywords like "employee letter" or "salary certificates","شهادة عمل","هل يمكنني طلب شهادة عمل بالراتب؟","أريد شهادة توظيف باللغة العربية مع تفاصيل الراتب", "أحتاج شهادة توظيف مع تفاصيل الراتب باللغة الإنجليزية".
+        -   This is strictly for obtaining official documents, NOT for applying for any leave.
+        -   This is also needed for getting salary certificates
+        -   NEVER use this tool for applying/requesting leaves.
+        -   DO NOT USE THIS FOR ANY REQUESTS OTHER THAN Employee Letter Request.
+        -   If a user is applying/Guiding for leave application (including marriage leave), use ApplyLeave instead.
+
+        """
+    },
+   
+    {
+        "tool_name": "GetRPRequest",
+        "tool_desc" : """
+        GetRPRequest: Use this tool when a user's request for resident permit details:
+        -	Retrieve status of RP request for family : Retrieve status of Resident permit Use keywords like "Resident permit", "Resident permit for family","status of RP renewal"
+        -	Get details about my Resident permit (RP) : fetch the details of resident permit
+        -   Use this only to check RP requests when the user asks about the status of their RP request
+        -   Do not use this to get the current status of the resident permit
+        """
+    },
+    {
+        "tool_name": "GetDependentsInformation",
+        "tool_desc": """
+        GetDependentsInformation: This tool provides access to user's dependents information, including:
+        - Retrieve dependent details: Check the information of your dependents, such as names, relations, nationality, passport details, and residence permit status. Use keywords like "dependent details", "dependent information", "family members info", "dependent records", "dependents data", "spouse details”.
+        - Retrieve passport and residence permit information: View the passport and residence permit details for your dependents, including expiration dates and status. Use keywords like "passport details", "residence permit info", "dependent passport information", "RP status", "passport expiry dates", "residence permit expiry","resident document".
+        - Retrieve child details: Check specific information about your children, such as names, IDs, age, date of birth, eligibility status, eligible amount, and allowance balance. Use keywords like "child details", "children information", "child records", "child eligibility", "child allowance balance".
+        - Default to this when asked details about remaining child education balance or the like.
+        - ALWAYS CALL THIS WHEN ASKED FOR INFORMATION ABOUT THE USER'S DEPENDENTS ("Get my dependents' information" or similar).
+        - uses keyword like "please provide my child school fees allowance","what is my child school fee balance"
+        """
+    },
+    {
+        "tool_name": "SendEmail",
+        "tool_desc": """
+        SendEmail: Use this tool ONLY when a user's request:
+        - Requires composing or sending an email.
+        - Includes keywords like: "send an email to xyz," "draft an email," "email template."
+        - DO NOT USE THIS TOOL IF THE WORD "EMAIL" IS NOT MENTIONED IN THE CONTEXT OF COMPOSING, OR SENDING AN EMAIL.
+        """
+    },
+
+    {
+        "tool_name": "ToWhomLetterRequest",
+        "tool_desc" : """
+        ToWhomLetterRequest: Use this tool strictly when a user's request:
+        -   Explicitly relates to applying or requesting an official "To Whom It May Concern" letter.
+        -   Clearly uses keywords like "to whom it may concern", "to whom letter with salary","to whom letter without salary" or "to whom letter" in the context of an letter,"خطاب لمن يهمه الأمر", "هل يمكنني الحصول على خطاب "إلى من يهمه الأمر" بدون الراتب باللغة الإنجليزية؟".
+        -   THIS IS FOR FORMAL, PROFESSIONAL PURPOSES ONLY. DO NOT CALL THIS IF THE REQUEST IS FOR PERSONAL OR GENERAL LETTERS.
+        -   DO NOT USE THIS FOR ANY REQUESTS OTHER THAN To Whom Letter Request
+        """
+    },
+    {
+        "tool_name": "ApplyLeave",
+        "tool_desc" : """
+        ApplyLeave: Use this tool when a user's request:
+        -   Relates to applying or requesting for leave: Initiate a leave request by specifying the type of leave, duration, and relevant details.
+        -   If the user asks for leave (e.g., إجازة, طلب إجازة, apply for leave, Guide me on how to submit a marriage leave request), always use this tool
+        -   Use this tool for any leave requests, including sick leave, annual leave, casual leave, and special leaves such as marriage leave, maternity leave, or emergency leave.
+        -   Use keywords like "apply leave", "leave request", "submit leave application", "request leave", "تطبيق الإجازة".
+        -   Only use this if the user explicitly requests to apply for leave or is responding to a question on whether they want to apply for leave.
+        -   DEFAULT TO THIS IF THE USER ASKS TO APPLY FOR ANY TYPE OF LEAVE.
+        -   Use key words like "apply SICK/ANNUAL/CASUAL/C leave" - where x is the type of leave - ALWAYS CALL THIS TOOL IN SUCH CASES
+        """
+    },
+    # {
+    #     "tool_name": "GetMyNewBabyRequest",
+    #     "tool_desc" : """
+    #     GetMyNewBabyRequest: Use this tool when a user's request:
+    #     -   Relates to checking the status or details of a new baby request: Retrieve the requestor's full name, ticket number, current status, and request type.
+    #     -   Use keywords like "new baby request", "check baby request status", "baby request details".
+    #     -   Only use this if the user explicitly asks for information about their new baby request or is responding to a question about their baby request status.
+    #     -   Never use this for unrelated inquiries.
+    #     """
+    # },
+    # {
+    #     "tool_name": "GetPassportIdLossRequest",
+    #     "tool_desc" : """
+    #     GetPassportIdLossRequest: Use this tool when a user's request:
+    #     -   Relates to checking the status or details of a lost passport or ID request: Retrieve the requestor's full name, ticket number, current status, and request type.
+    #     -   Use keywords like "lost passport request", "lost ID request", "check passport ID loss status", "passport ID loss details".
+    #     -   The user may also ask to get request details after saying their passport/ID is lost.
+    #     -   Only use this if the user explicitly asks for information about their lost passport or ID request or is responding to a question about their passport ID loss status.
+    #     """
+    # },
+    # {
+    #     "tool_name": "GetFamilyVisaDetails",
+    #     "tool_desc" : """
+    #     GetFamilyVisaDetails: Use this tool when a user's request:
+    #     -   Relates to checking the status or details of a family visa request: Retrieve the requestor's full name, ticket number, current status, and request type.
+    #     -   Use keywords like "family visa request", "check family visa status", "family visa details","get me my family visa details".
+    #     -   Only use this if the user explicitly asks for information about their family visa request or is responding to a question about their family visa status.
+    #     -   Use this for questions regarding family visa request status, famila visa details.
+    #     -   Never use this for unrelated inquiries.
+    #     """
+    # },
+    {
+        "tool_name": "GetAvailability",
+        "tool_desc" : """
+        GetAvailability: Use this tool to fetch/get/find the availability of a user:
+        - Relates to checking or retrieving the availability or schedule details of a user: Retrieve the schedule/availability of a user.
+        - Use this when the user asks about their own or someone else's availability, schedule, or free time.
+        - Use keywords like "get availability", "get schedule", "when will I be free", "check my calendar", "is [person] available", "when is [person] free", "can you check [user]'s availability", "please check [user]'s availability".
+        - IF THE PREVIOUS QUERY WAS ABOUT AVAILABILITY, INTERPRET FOLLOW-UP QUERIES (e.g., "how about Hani Chahal") IN THE SAME CONTEXT AND USE THE GetAvailability TOOL, Don't use GetPersonalAndContactInfo tool for availability check.
+        """
+},
+#    {
+#        "tool_name": "GetMemory",
+#        "tool_desc" : """
+#        GetMemory: ONLY use this tool when the user asks you to recall something they have asked YOU:
+##        -  Use keywords like "remember when I told you" or similar.
+#        -  If the user asks for anything else, check their mails or docs
+#        """
+#    },
+    # {
+    #     "tool_name": "UploadAddNewBaby",
+    #     "tool_desc" : """
+    #     UploadAddNewBaby: use this tool to register user's new baby:
+    #     -  Relates to register new baby or add new baby request. 
+    #     -  Use keywords like "register/add new baby", "ulpoad document for new baby", "add my new baby.
+    #     """
+    # },
+   {
+        "tool_name": "GetRoomAvailability",
+        "tool_desc" : """
+        GetRoomAvailability: Use this tool to fetch/get/find the availability of a room:
+        - Relates to checking or retrieving the availability or schedule details of a room: Retrieve the schedule/availability of a room.
+        - Use this when the user asks about available meeting rooms, free rooms, or room schedules.
+        - Keywords: "get me a free meeting room", "get room availability", "get free rooms".
+        - Use keywords like "get/check availability of a room", "get schedule of a room", "when will the room be free", "get available rooms", "check if [room name] is available tomorrow at [time]".
+        - Queries might include specific room names such as "Al Udaid", "Al Wajbah", "Al Shamal", "Barzan", "Al Rayyan", and similar.
+        """
+},
+
+    # {
+    #     "tool_name":"CreateToDoTask", 
+    #     "tool_desc":""" 
+    #     CreateToDoTask: use this tool to create and sync tasks to the user's Outlook calendar:
+    #     - Relates to creating a specified task with a name, date and time, in the user's Outlook calendar
+    #     - Use keywords like "create new task", "add <task> to calendar", "add task", "add <task details> to calendar", "add to schedule".
+    #     - This is good to choose if the user wants to create a new task on their calendar. 
+    #     """
+    # },
+#    {
+#        "tool_name":"GetGPSRating", 
+#        "tool_desc":""" 
+#        GetGPSRating: Use this tool when a user's request:
+#        - Relates to obtaining the user's or their subordinates' performance rating (GPS rating) within the department.
+#        - Also relates to obtaining information and context about the alignment of personal objective description with the employee's departmental objective description.
+#        - Also relates to evaluating the employee's objectives reached, competencies, and targets left.
+#        - Keywords used: "get my perfomance rating", "get my GPS rating", "get my rating", "get my subordinates rating", "get all my ratings", "get all my subordinates ratings", "get competency rating".
+#        - This tool is good to use when the user is asking for a performance rating for himself or his subordinates.
+#        - YOU MUST CALL THIS IF THE USER MENTIONS `GPS`
+#        """
+#    },
+
+#    {
+#        "tool_name":"MarkAsImportant", 
+#        "tool_desc":""" 
+#        MarkAsImportant: Use this tool when a user's request:
+#        - Requires to mark a particular existing email in his inbox as important.
+#        - Keywords used: "mark <email> as important", mark as important", "<email> is important", "mark all emails with <word> as important", "email from <email id> are important".
+#        - This is tool is good for when the user's request involves marking only existing emails or a subset of emails in the inbox as important.
+#        """
+#    },
+    # {
+    #     "tool_name" : "UploadRequestFamilyVisa",
+    #     "tool_desc" : """
+    #     UploadRequestFamilyVisa: Use this tool when the user requests:
+    #     -   To apply for a family visa
+    #     -   Use keywords like "apply for family visa"
+    #     """
+    # },
+    # {
+    #     "tool_name":"UploadRPRenewReq", 
+    #     "tool_desc":""" 
+    #     UploadRPRenewReq: Use this tool when a user's request:
+    #     - Requires to apply for resident permit(RP).
+    #     - Keywords used: "apply for resident permit", "request for resident permit renewal"
+    #     """
+    # },
+    # {
+    #     "tool_name": "UploadReportPassportIdLoss",
+    #     "tool_desc" : """
+    #     UploadReportPassportIdLoss: Use this tool when a user's request:
+    #     -   Relates to apply or report the lost of passport ID
+    #     -   Use keywords like "apply for lost passport request", "lost ID request", "report passport ID loss".
+    #     -   Use this tool call when user says i lost my passport or similar
+    #     """
+    # },
+    # {
+    #     "tool_name": "GetInsuranceAndHealthcareProviders",
+    #     "tool_desc": """
+    #     GetInsuranceAndHealthcareProviders: Use this tool when a user's request:
+    #     - Relates to getting information about their insurance providers or health care provider
+    #     - Uses keywords like "insurance provider", "insurance provider information”,"health care provider", "health care provider information" or similar.
+    #     - This is a good choice if the user is asking for doctors within their network or so on.
+    #     """
+    # },
+#    {
+#        "tool_name" : "ReplyMail",
+#        "tool_desc" : """
+#        ReplyMail: Use this tool when a user's request:
+#        - Relates to replying to a mail (usually just replying TO someone)
+#        - Use keywords like `reply to` or the like
+#        - The user may also ask "can you reply to" or "can you draft a reply" 
+#        - In some cases, a request with a few queries only containing numbers may also imply a need to reply to an email, where the selected thread corresponds to the respective number.
+#        - Only use this tool when the user explicitly requests to reply to an email.
+#        """
+#    },
+    {
+        "tool_name" : "ScheduleMeeting",
+        "tool_desc" : """
+        ScheduleMeeting: Use this tool when a user's request:
+        - Involves scheduling a meeting with others
+        """
+    },
+   {
+       "tool_name": "PayslipRequest",
+       "tool_desc": """
+       PayslipRequest: ONLY use this tool when:
+       -  The user requests for their past PAYSLIP ONLY
+       -  keyword used: "get my past payslip", "get my last payslip,"ايصال الراتب","قسيمة الراتب"
+       """
+   },
+    {
+        "tool_name": "GetAttendanceByDateRange",
+        "tool_desc": """
+        GetAttendanceByDateRange: use this tool to check attendance or working hours for a specific date range or a particular day:
+        - Relates to retrieving the employee's attendance records, total working hours, or hours left to work.
+        - Use keywords like "attendance record", "check attendance", "working hours", "hours left to work", "attendance details", "check-in", "check-out", "total in time", "total out time", "remaining working hours","logged in","logged out".
+        - Only use this if the user explicitly asks for information about their attendance or working hours, or if they are responding to a question about their attendance status.
+        - Can also be used to retrieve the same information for the user's subordinates if specified.
+        - The tool provides detailed attendance information including check-in and check-out times, total working time, total in time, total out time, and remaining working hours.
+        - ALWAYS CALL THIS IN ATTENDANCE-RELATED QUERIES
+        """
+    },
+    # {
+    #     "tool_name": "UploadRequestFamilyVisa",
+    #     "tool_desc" : """
+    #     UploadRequestFamilyVisa: Use this tool when a user's request:
+    #     -   Relates to applying or request for family visa.
+    #     -   Use keywords like "apply for family visa", "request for family visa".
+    #     """
+    # },
+    {
+        "tool_name": "GetUserRequestDetails",
+        "tool_desc": """
+        GetUserRequestDetails: use this tool to retrieve and check the status of all type of user requests:
+        - View outstanding user requests status such as leaves requests, leave dusty resumption request status or letter requests.
+        - Check leave request status or requests that require the user's approval ONLY.
+        - Keywords/keyphrases include "What is the status of the leave I just applied for?","leave status","leave request status","request status","bank letter request status","employee letter request status"
+        - DO NOT USE THIS FOR ANY REQUESTS OTHER THAN STATUS INQUIRIES.
+        """
+    },
+
+    {
+        "tool_name": "ChildSchoolFeeRequest",
+        "tool_desc": """
+        ChildSchoolFeeRequest: use this tool to raise requests related to child school fee reimbursement/education allowance:
+        - Relates to submitting a new school fee reimbursement request for a child.
+        - Use keywords like "school fee request", "school fee reimbursement request", "fee claim request", "fee reimbursement request".
+        - Use this tool exclusively to submit new requests for child school fee reimbursement.
+        - CALL THIS TOOL ONLY IF THE USER HAS SPECIFICALLY MENTIONED THAT THEY WANT TO SUBMIT A CHILD SCHOOL FEE REQUEST.
+        - NEVER CALL THIS UNDER ANY OTHER CIRCUMSTANCE.
+        """
+    },
+
+    {
+        "tool_name": "SubmitLeaveDutyResumptionRequest",
+        "tool_desc": """
+        SubmitLeaveDutyResumptionRequest: Use this tool when a user's request:
+        - MUST be about returning to work EARLIER than their original leave end date
+        - MUST contain clear keywords such as:
+            * "resume duty"
+            * "came back from leave" 
+            * "return early from leave"
+            * "cut short my leave"
+            * "استئناف العمل"
+            * "قدم طلب لاستئناف العمل"
+        - keyphrases include 'I just came back from leave please fill form for me'
+        - This tool should be used whenever the user's intent is to confirm their return from leave, whether early or on time.
+        
+        DO NOT USE THIS TOOL IF:
+        - User is applying for leave
+        - User hasn't explicitly mentioned early return
+        
+        IMPORTANT: This tool is ONLY for processing early return from EXISTING leave. Never use it for leave applications (casual, annual, sick, etc). **NEVER** use this tool if user says  "guide me how to apply leave","التقدم بطلب للحصول على إجازة" etc.
+        """
+    },
+#    {
+#        "tool_name": "ReplyAllMail",
+#        "tool_desc": """
+#        ReplyAllMail: Use this tool when a user's request:
+#        - Relates to email replying to all.
+#        - ONLY uses keywords like "reply all", "reply all about xyz" or similar.
+#        """
+#    },
+#    {
+#        "tool_name": "ForwardMail",
+#        "tool_desc": """
+#        ForwardMail: Use this tool when a user's request:
+#        - Relates to email forward.
+#        - ONLY uses keywords like "forward the email", "forward to xyz" or similar.
+#        """
+#    },
+    {
+        "tool_name": "GetCorporateDiscounts",
+        "tool_desc": """
+        GetCorporateDiscounts: Use this tool when a user's request:
+        - Relates to getting information about discounts.
+        - Uses keywords like "corporate discount", "discount information","discounts", "Am I eligible for discounts","check for discounts" or similar.
+        - When the user wants to find out discounts they are eligible for. 
+        ALWAYS use this tool if someone asks for discounts.
+        """
+    },
+    {
+    "tool_name" : "AZFDocumentsInformation",
+    "tool_desc" : """
+    AZFDocumentsInformation: Only use this tool when:
+    - The user asks for information regarding **AZF (أزف)**/**Aspire (أسباير)**/**Aspetar (أسبتار)** and the **company policies (سياسات الشركة)**/**Information (معلومات الشركة)**
+    """
+    },
+
+    {
+    "tool_name" : "ITDocumentsInformation",
+    "tool_desc" : """
+    ITDocumentsInformation: Only use this tool when:
+    -  The user asks for information regarding IT (تكنولوجيا المعلومات) documents (وثائق), policies (سياسات) or ID card (بطاقة الهوية)
+    """
+    },
+
+#    {
+#        "tool_name": "OtherLetterRequest",
+#        "tool_desc": """
+#        OtherLetterRequest: Use this tool when a user's request:
+#        -   Relates to applying or requesting for a letter that does not fall under the categories of employee letter, bank letter, or visa letter
+#        -   Is for miscellaneous purposes or when the purpose of the letter request is unspecified or unique
+#        """
+#    },
+    {
+    "tool_name": "GetPersonalAndContactInfo",
+    "tool_desc": """
+    Use this tool ONLY to retrieve specific personal or contact information:
+    - For user's own details (e.g., "get my user details", "who is my manager").
+    - For contact details of officials, department heads, or security (e.g., "get Hani Chahal's phone number").
+    - Information includes: managers, subordinates, nationality, ID, grade, phone number, employee status.
+    - DO NOT use for dependents, policy info, attendance, scheduling, or availability.
+    - ONLY call when explicitly requested (e.g., "get contact info for <name>").
+    """
+},
+
+    {
+        "tool_name": "CalculateOvertime",
+        "tool_desc": """
+        CalculateOvertime: Use this tool when a user's request:
+        - Relates to calculating their overtime pay.
+        - Uses keywords like "calculate overtime", "overtime pay", "overtime calculation", or similar.
+        - When the user wants to determine how much they will earn for overtime hours worked.
+        ALWAYS use this tool if someone asks about their overtime pay.
+        """
+    }
+]
